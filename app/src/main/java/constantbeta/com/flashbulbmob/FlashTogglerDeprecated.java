@@ -64,13 +64,11 @@ public class FlashTogglerDeprecated implements FlashToggler {
         final Camera.Parameters params = camera.getParameters();
         params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
         camera.setParameters(params);
-        camera.startPreview();
     }
 
     private void _toggleOff() {
         final Camera.Parameters params = camera.getParameters();
         params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         camera.setParameters(params);
-        camera.stopPreview();
     }
 }

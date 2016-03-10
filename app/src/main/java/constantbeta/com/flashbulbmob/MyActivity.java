@@ -32,7 +32,7 @@ public class MyActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         try {
-            flashToggler = new FlashTogglerNew(getApplicationContext());
+            flashToggler = new FlashTogglerDeprecated(getApplicationContext());
         }
         catch (final Exception e) {
             AlertDialog alert = new AlertDialog.Builder(MyActivity.this)
