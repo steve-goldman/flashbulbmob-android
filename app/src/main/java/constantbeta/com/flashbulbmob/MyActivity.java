@@ -12,9 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MyActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.constantbeta.flashbulbmob.MESSAGE";
     private FlashToggler flashToggler;
+    private Timer repeatingTimer;
+    private final List<Long> onDeltas = new ArrayList<Long>();
+    private final List<Long> offDeltas = new ArrayList<Long>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +54,35 @@ public class MyActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                flashToggler.toggle();
+                repeatingTimer = new Timer();
+                repeatingTimer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (repeatingTimer == null) {
+                            return;
+                        }
+
+                        final long startTime = getCurrentTimeMicros();
+                        flashToggler.toggle();
+                        final long delta = getCurrentTimeMicros() - startTime;
+                        if (flashToggler.isFlashOn()) {
+                            onDeltas.add(delta);
+                        } else {
+                            offDeltas.add(delta);
+                        }
+                    }
+                }, 100, 100);
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        repeatingTimer.cancel();
+                        repeatingTimer = null;
+                        flashToggler.toggleOff();
+                        System.out.println("Deltas:");
+                        for (int i = 0; i < Math.min(onDeltas.size(), offDeltas.size()); i++)
+                            System.out.println(onDeltas.get(i) + "," + offDeltas.get(i));
+                    }
+                }, 100000);
             }
         });
     }
@@ -87,5 +123,9 @@ public class MyActivity extends AppCompatActivity {
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+    }
+
+    private long getCurrentTimeMicros() {
+        return System.nanoTime() / 1000;
     }
 }
