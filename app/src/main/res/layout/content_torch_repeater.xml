@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_torch_repeater">
+
+    <TextView android:id="@+id/torch_repeater_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34dp"
+        android:text="@string/torch_repeater_label"/>
+
+    <TextView android:id="@+id/boundaries_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_below="@id/torch_repeater_label"
+        android:textSize="14sp"
+        android:text="@string/boundaries_label"/>
+
+    <TextView android:id="@+id/on_millis_label"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_below="@id/boundaries_label"
+        android:textSize="20sp"
+        android:text="@string/on_millis_label"/>
+
+    <EditText android:id="@+id/on_millis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/boundaries_label"
+        android:layout_toRightOf="@id/on_millis_label"
+        android:inputType="number"
+        android:text="500"/>
+
+    <TextView android:id="@+id/off_millis_label"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_below="@id/on_millis_label"
+        android:textSize="20sp"
+        android:text="@string/off_millis_label"/>
+
+    <EditText android:id="@+id/off_millis"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/on_millis"
+        android:layout_toRightOf="@id/off_millis_label"
+        android:inputType="number"
+        android:text="500"/>
+
+    <Button android:id="@+id/stop_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:text="@string/stop_button"
+        android:layout_below="@id/off_millis_label"
+        android:background="@color/colorStop"
+        android:textColor="@color/colorButtonText"
+        android:onClick="stopPressed"/>
+
+    <Button android:id="@+id/can_start_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:text="@string/can_start_button"
+        android:layout_below="@id/off_millis_label"
+        android:background="@color/colorStart"
+        android:textColor="@color/colorButtonText"
+        android:onClick="startPressed"/>
+
+    <Button android:id="@+id/cannot_start_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:text="@string/cannot_start_button"
+        android:layout_below="@id/off_millis_label"
+        android:background="@color/colorStart"
+        android:alpha="0.4"
+        android:textColor="@color/colorButtonText"/>
+
+</RelativeLayout>
