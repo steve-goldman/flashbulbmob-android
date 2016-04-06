@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">FlashBulbMob</string>
-    <string name="edit_message">Enter a message</string>
-    <string name="button_send">Send</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_display_message">My Message</string>
+    <string name="can_start_button">Start</string>
+    <string name="cannot_start_button">Start</string>
+    <string name="stop_button">Stop</string>
+    <string name="torch_repeater_label">Torch Repeater</string>
+    <string name="boundaries_label">Times must be between MIN and MAX</string>
+    <string name="on_millis_label">ON millis</string>
+    <string name="off_millis_label">OFF millis</string>
 </resources>

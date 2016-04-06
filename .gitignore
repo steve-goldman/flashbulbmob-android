@@ -5,6 +5,7 @@
 /.idea/libraries
 /.idea/inspectionProfiles
 /.idea/dictionaries
+/.idea/codeStyleSettings.xml
 .DS_Store
 /build
 /captures
