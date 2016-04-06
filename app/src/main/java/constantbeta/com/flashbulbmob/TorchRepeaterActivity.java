@@ -18,6 +18,7 @@ public class TorchRepeaterActivity extends AppCompatActivity
     private static final int MaxMillis = 5000;
 
     private FlashToggler flashToggler;
+    private TorchRepeater torchRepeater;
 
     private EditText onMillisEditText;
     private EditText offMillisEditText;
@@ -152,17 +153,17 @@ public class TorchRepeaterActivity extends AppCompatActivity
 
     public void startPressed(View view)
     {
-        System.out.println("start pressed");
         dismissKeyboard();
         disableAndHide(canStartButton);
         enableAndShow(stopButton);
         disableInputs();
-        // TODO: torch stuff
+        torchRepeater = new TorchRepeater(flashToggler, onMillis(), offMillis());
+        torchRepeater.start();
     }
 
     public void stopPressed(View view)
     {
-        System.out.println("stop pressed");
+        torchRepeater.stop();
         enableInputs();
         disableAndHide(stopButton);
         enableAndShow(canStartButton);
