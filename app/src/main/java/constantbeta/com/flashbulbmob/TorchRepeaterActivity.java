@@ -28,16 +28,39 @@ public class TorchRepeaterActivity extends AppCompatActivity
     private Button stopButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_torch_repeater);
 
         setupToolbar();
-        setupFlashToggler();
         setupTextInputs();
         setupBoundariesLabel();
         setupButtons();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        if (torchRepeater != null)
+        {
+            stopPressed(null);
+        }
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        setupFlashToggler();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        releaseFlashToggler();
     }
 
     private void setupToolbar()
@@ -82,6 +105,14 @@ public class TorchRepeaterActivity extends AppCompatActivity
         catch (final Exception e)
         {
             // no-op
+        }
+    }
+
+    private void releaseFlashToggler()
+    {
+        if (flashToggler != null)
+        {
+            flashToggler.destroy();
         }
     }
 
@@ -141,16 +172,6 @@ public class TorchRepeaterActivity extends AppCompatActivity
         offMillisEditText.setEnabled(true);
     }
 
-    @Override
-    public void onDestroy()
-    {
-        if (flashToggler != null)
-        {
-            flashToggler.destroy();
-        }
-        super.onDestroy();
-    }
-
     public void startPressed(View view)
     {
         dismissKeyboard();
@@ -164,6 +185,7 @@ public class TorchRepeaterActivity extends AppCompatActivity
     public void stopPressed(View view)
     {
         torchRepeater.stop();
+        torchRepeater = null;
         enableInputs();
         disableAndHide(stopButton);
         enableAndShow(canStartButton);
