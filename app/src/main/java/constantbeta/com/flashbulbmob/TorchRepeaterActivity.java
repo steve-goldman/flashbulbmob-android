@@ -53,14 +53,12 @@ public class TorchRepeaterActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-        setupFlashToggler();
     }
 
     @Override
     protected void onStop()
     {
         super.onStop();
-        releaseFlashToggler();
     }
 
     private void setupToolbar()
@@ -96,16 +94,8 @@ public class TorchRepeaterActivity extends AppCompatActivity
         disableAndHide(stopButton);
     }
 
-    private void setupFlashToggler()
-    {
-        try
-        {
-            flashToggler = new FlashTogglerDeprecated(getApplicationContext());
-        }
-        catch (final Exception e)
-        {
-            // no-op
-        }
+    private void setupFlashToggler() throws Exception {
+           flashToggler = new FlashTogglerDeprecated(getApplicationContext());
     }
 
     private void releaseFlashToggler()
@@ -172,12 +162,12 @@ public class TorchRepeaterActivity extends AppCompatActivity
         offMillisEditText.setEnabled(true);
     }
 
-    public void startPressed(View view)
-    {
+    public void startPressed(View view) throws Exception {
         dismissKeyboard();
         disableAndHide(canStartButton);
         enableAndShow(stopButton);
         disableInputs();
+        setupFlashToggler();
         torchRepeater = new TorchRepeater(flashToggler, onMillis(), offMillis());
         torchRepeater.start();
     }
@@ -186,6 +176,8 @@ public class TorchRepeaterActivity extends AppCompatActivity
     {
         torchRepeater.stop();
         torchRepeater = null;
+        releaseFlashToggler();
+        
         enableInputs();
         disableAndHide(stopButton);
         enableAndShow(canStartButton);
